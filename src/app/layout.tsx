@@ -1,3 +1,4 @@
+import { ShoppingProvider } from './context'
 import Layout from './components/Layout'
 import './globals.css'
 import { Inter } from 'next/font/google'
@@ -17,7 +18,9 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<Layout>{children}</Layout>
+				<ShoppingProvider>
+					<Layout>{children}</Layout>
+				</ShoppingProvider>
 			</body>
 		</html>
 	)
