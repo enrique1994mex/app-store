@@ -1,4 +1,5 @@
 import Card from './components/Card'
+import ProductDetail from './components/ProductDetail'
 import { Product } from '@/interfaces/generics'
 
 async function getData() {
@@ -21,6 +22,7 @@ export default async function Home() {
 			{data.map((product) => (
 				<Card product={product} />
 			))}
+			<ProductDetail />
 		</div>
 	)
 }

@@ -17,6 +17,10 @@ export interface Product {
 	category: Category
 }
 
+export interface Data {
+	product: Product
+}
+
 export interface Products {
 	products: Array<Product>
 }
