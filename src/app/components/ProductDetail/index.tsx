@@ -4,7 +4,6 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 import { ShoppingContext } from '@/app/context'
 import { ContextShopping } from '@/app/context'
 import style from '../../styles/product.module.css'
-import React from 'react'
 
 const ProductDetail = () => {
 	const { isProductDetailOpen, productDetail, productToShow } = useContext(
