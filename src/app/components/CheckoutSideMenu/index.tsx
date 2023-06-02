@@ -7,8 +7,13 @@ import OrderCard from '../OrderCard'
 import style from '../../styles/checkout.module.css'
 
 const CheckoutSideMenu = () => {
-	const { isCheckoutMenu, checkoutMenu, productToShow, cartProducts } =
+	const { isCheckoutMenu, checkoutMenu, setCartProducts, cartProducts } =
 		useContext(ShoppingContext) as ContextShopping
+
+	const handleDelete = (id: number) => {
+		const filteredProducts = cartProducts.filter((product) => product.id !== id)
+		setCartProducts((prevState) => [...filteredProducts])
+	}
 	return (
 		<aside
 			className={`${isCheckoutMenu ? 'flex' : 'hidden'} ${
@@ -23,7 +28,11 @@ const CheckoutSideMenu = () => {
 			</div>
 			<div className='px-6 overflow-y-scroll'>
 				{cartProducts.map((product) => (
-					<OrderCard key={product.id} product={product} />
+					<OrderCard
+						key={product.id}
+						product={product}
+						handleDelete={handleDelete}
+					/>
 				))}
 			</div>
 		</aside>

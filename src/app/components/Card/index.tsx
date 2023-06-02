@@ -1,6 +1,6 @@
 'use client'
-import { Dispatch, SetStateAction, useContext } from 'react'
-import { PlusIcon } from '@heroicons/react/24/solid'
+import { useContext } from 'react'
+import { PlusIcon, CheckIcon } from '@heroicons/react/24/solid'
 import { ShoppingContext } from '@/app/context'
 import { ContextShopping } from '@/app/context'
 import { Product } from '@/interfaces/generics'
@@ -14,6 +14,7 @@ const Card = ({ product }: Props) => {
 		setCount,
 		productDetail,
 		setProductToShow,
+		cartProducts,
 		setCartProducts,
 		checkoutMenu,
 	} = useContext(ShoppingContext) as ContextShopping
@@ -29,6 +30,28 @@ const Card = ({ product }: Props) => {
 		setCartProducts((prevState) => [...prevState, data])
 		checkoutMenu()
 	}
+
+	const renderIcon = (id: number) => {
+		const isInCart =
+			cartProducts.filter((product) => product.id === id).length > 0
+
+		if (isInCart) {
+			return (
+				<div className='absolute top-0 right-0 flex justify-center items-center bg-black w-6 h-6 rounded-full m-2 p-1'>
+					<CheckIcon className='h-6 w-6 text-white' />
+				</div>
+			)
+		} else {
+			return (
+				<div
+					className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+					onClick={(event) => addProductToCart(event, product)}
+				>
+					<PlusIcon className='h-6 w-6 text-black' />
+				</div>
+			)
+		}
+	}
 	return (
 		<div
 			className='bg-white cursor-pointer w-56 h-60 rounded-lg'
@@ -43,12 +66,7 @@ const Card = ({ product }: Props) => {
 					src={product.images[0]}
 					alt={product.title}
 				/>
-				<div
-					className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
-					onClick={(event) => addProductToCart(event, product)}
-				>
-					<PlusIcon className='h-6 w-6 text-black' />
-				</div>
+				{renderIcon(product.id)}
 			</figure>
 			<p className='flex justify-between'>
 				<span className='text-sm font-light'>{product.title}</span>
