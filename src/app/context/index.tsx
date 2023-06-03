@@ -6,7 +6,7 @@ import {
 	createContext,
 	useState,
 } from 'react'
-import { Data, Product } from '@/interfaces/generics'
+import { Data, Product, Order } from '@/interfaces/generics'
 
 export type ContextShopping = {
 	count: number
@@ -17,6 +17,8 @@ export type ContextShopping = {
 	setProductToShow: Dispatch<SetStateAction<Data | undefined>>
 	cartProducts: Array<Product>
 	setCartProducts: Dispatch<SetStateAction<Array<Product>>>
+	order: Array<Order>
+	setOrder: Dispatch<SetStateAction<Array<Order>>>
 	isCheckoutMenu: boolean
 	checkoutMenu: () => void
 }
@@ -38,6 +40,9 @@ export const ShoppingProvider = ({ children }: Props) => {
 	//Cart products
 	const [cartProducts, setCartProducts] = useState<Array<Product>>([])
 
+	//Cart Order
+	const [order, setOrder] = useState<Array<Order>>([])
+
 	//Checkout menu
 	const [isCheckoutMenu, setIsCheckoutMenu] = useState<boolean>(false)
 	const checkoutMenu = () => setIsCheckoutMenu((prevState) => !prevState)
@@ -53,6 +58,8 @@ export const ShoppingProvider = ({ children }: Props) => {
 				setProductToShow,
 				cartProducts,
 				setCartProducts,
+				order,
+				setOrder,
 				isCheckoutMenu,
 				checkoutMenu,
 			}}

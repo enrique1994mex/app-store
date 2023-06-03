@@ -1,19 +1,38 @@
 'use client'
 import { useContext } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
+import Link from 'next/link'
 import { ShoppingContext } from '@/app/context'
 import { ContextShopping } from '@/app/context'
+import { Order } from '@/interfaces/generics'
 import OrderCard from '../OrderCard'
 import { totalPrice } from '@/app/utils'
 import style from '../../styles/checkout.module.css'
 
 const CheckoutSideMenu = () => {
-	const { isCheckoutMenu, checkoutMenu, setCartProducts, cartProducts } =
-		useContext(ShoppingContext) as ContextShopping
+	const {
+		isCheckoutMenu,
+		checkoutMenu,
+		setCartProducts,
+		cartProducts,
+		setOrder,
+	} = useContext(ShoppingContext) as ContextShopping
 
 	const handleDelete = (id: number) => {
 		const filteredProducts = cartProducts.filter((product) => product.id !== id)
 		setCartProducts((prevState) => [...filteredProducts])
+	}
+
+	const handleCheckout = () => {
+		const orderToAdd: Order = {
+			date: new Date(),
+			products: cartProducts,
+			totalProducts: cartProducts.length,
+			totalPrice: totalPrice(cartProducts),
+		}
+
+		setOrder((prevState) => [...prevState, orderToAdd])
+		setCartProducts([])
 	}
 	return (
 		<aside
@@ -27,7 +46,7 @@ const CheckoutSideMenu = () => {
 					<XMarkIcon className='h-6 w-6 text-black cursor-pointer' />
 				</div>
 			</div>
-			<div className='px-6 overflow-y-scroll'>
+			<div className='px-6 overflow-y-scroll flex-1'>
 				{cartProducts.map((product) => (
 					<OrderCard
 						key={product.id}
@@ -36,13 +55,21 @@ const CheckoutSideMenu = () => {
 					/>
 				))}
 			</div>
-			<div className='px-6'>
-				<p className='flex justify-between items-center'>
+			<div className='px-6 mb-4'>
+				<p className='flex justify-between items-center mb-2'>
 					<span className='font-light'>Total:</span>
 					<span className='font-medium text-2xl'>
 						${totalPrice(cartProducts)}
 					</span>
 				</p>
+				<Link href='my-order'>
+					<button
+						className='bg-black py-3 text-white w-full rounded-lg'
+						onClick={() => handleCheckout()}
+					>
+						Checkout
+					</button>
+				</Link>
 			</div>
 		</aside>
 	)

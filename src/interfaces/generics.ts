@@ -17,6 +17,13 @@ export interface Product {
 	category: Category
 }
 
+export interface Order {
+	date: Date
+	products: Array<Product>
+	totalProducts: number
+	totalPrice: number
+}
+
 export interface Data {
 	product: Product
 }

@@ -3,11 +3,21 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 
 type Props = {
 	product: Product
-	handleDelete: (id: number) => void
+	handleDelete?: (id: number) => void
 }
 
 const OrderCard = ({ product, handleDelete }: Props) => {
 	const { id, title, images, price } = product
+
+	let renderXMarkIcon
+	if (handleDelete) {
+		renderXMarkIcon = (
+			<XMarkIcon
+				onClick={() => handleDelete(id)}
+				className='h-6 w-6 text-black cursor-pointer'
+			/>
+		)
+	}
 	return (
 		<div className='flex justify-between items-center mb-2'>
 			<div className='flex items-center gap-2'>
@@ -22,10 +32,7 @@ const OrderCard = ({ product, handleDelete }: Props) => {
 			</div>
 			<div className='flex items-center gap-2'>
 				<p className='text-lg font-medium'>{price}</p>
-				<XMarkIcon
-					onClick={() => handleDelete(id)}
-					className='h-6 w-6 text-black cursor-pointer'
-				/>
+				{renderXMarkIcon}
 			</div>
 		</div>
 	)
