@@ -9,6 +9,8 @@ import OrderCard from '../OrderCard'
 import { totalPrice } from '@/app/utils'
 import style from '../../styles/checkout.module.css'
 
+const generateId = () => Math.random().toString(36).substring(2, 9)
+
 const CheckoutSideMenu = () => {
 	const {
 		isCheckoutMenu,
@@ -25,6 +27,7 @@ const CheckoutSideMenu = () => {
 
 	const handleCheckout = () => {
 		const orderToAdd: Order = {
+			id: generateId(),
 			date: new Date(),
 			products: cartProducts,
 			totalProducts: cartProducts.length,
@@ -62,7 +65,7 @@ const CheckoutSideMenu = () => {
 						${totalPrice(cartProducts)}
 					</span>
 				</p>
-				<Link href='my-order'>
+				<Link href='my-order/last'>
 					<button
 						className='bg-black py-3 text-white w-full rounded-lg'
 						onClick={() => handleCheckout()}

@@ -18,6 +18,7 @@ export interface Product {
 }
 
 export interface Order {
+	id: string
 	date: Date
 	products: Array<Product>
 	totalProducts: number
