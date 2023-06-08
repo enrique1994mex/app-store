@@ -14,7 +14,7 @@ const generateId = () => Math.random().toString(36).substring(2, 9)
 const CheckoutSideMenu = () => {
 	const {
 		isCheckoutMenu,
-		checkoutMenu,
+		setIsCheckoutMenu,
 		setCartProducts,
 		cartProducts,
 		setOrder,
@@ -33,9 +33,9 @@ const CheckoutSideMenu = () => {
 			totalProducts: cartProducts.length,
 			totalPrice: totalPrice(cartProducts),
 		}
-
 		setOrder((prevState) => [...prevState, orderToAdd])
 		setCartProducts([])
+		setIsCheckoutMenu(false)
 	}
 	return (
 		<aside
@@ -45,7 +45,7 @@ const CheckoutSideMenu = () => {
 		>
 			<div className='flex justify-between items-center p-6'>
 				<h2 className='font-medium text-xl'>My order</h2>
-				<div onClick={() => checkoutMenu()}>
+				<div onClick={() => setIsCheckoutMenu(false)}>
 					<XMarkIcon className='h-6 w-6 text-black cursor-pointer' />
 				</div>
 			</div>

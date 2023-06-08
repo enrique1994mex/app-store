@@ -15,7 +15,7 @@ const Card = ({ product }: Props) => {
 		setProductToShow,
 		cartProducts,
 		setCartProducts,
-		checkoutMenu,
+		setIsCheckoutMenu,
 	} = useContext(ShoppingContext) as ContextShopping
 
 	const showProduct = (data: Product) => {
@@ -26,7 +26,7 @@ const Card = ({ product }: Props) => {
 	const addProductToCart = (event: any, data: Product) => {
 		event.stopPropagation()
 		setCartProducts((prevState) => [...prevState, data])
-		checkoutMenu()
+		setIsCheckoutMenu(true)
 	}
 
 	const renderIcon = (id: number) => {

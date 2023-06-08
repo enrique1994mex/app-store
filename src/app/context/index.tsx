@@ -24,7 +24,7 @@ export type ContextShopping = {
 	order: Array<Order>
 	setOrder: Dispatch<SetStateAction<Array<Order>>>
 	isCheckoutMenu: boolean
-	checkoutMenu: () => void
+	setIsCheckoutMenu: Dispatch<SetStateAction<boolean>>
 }
 
 type Props = {
@@ -34,9 +34,6 @@ type Props = {
 export const ShoppingContext = createContext<ContextShopping | null>(null)
 
 export const ShoppingProvider = ({ children }: Props) => {
-	//Count products
-	const [count, setCount] = useState<number>(0)
-
 	//Product Detail
 	const [isProductDetailOpen, setIsProductDetailOpen] = useState<boolean>(false)
 	const productDetail = () => setIsProductDetailOpen((prevState) => !prevState)
@@ -59,7 +56,6 @@ export const ShoppingProvider = ({ children }: Props) => {
 
 	//Checkout menu
 	const [isCheckoutMenu, setIsCheckoutMenu] = useState<boolean>(false)
-	const checkoutMenu = () => setIsCheckoutMenu((prevState) => !prevState)
 
 	return (
 		<ShoppingContext.Provider
@@ -79,7 +75,7 @@ export const ShoppingProvider = ({ children }: Props) => {
 				order,
 				setOrder,
 				isCheckoutMenu,
-				checkoutMenu,
+				setIsCheckoutMenu,
 			}}
 		>
 			{children}
