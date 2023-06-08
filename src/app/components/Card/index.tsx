@@ -11,7 +11,6 @@ type Props = {
 
 const Card = ({ product }: Props) => {
 	const {
-		setCount,
 		productDetail,
 		setProductToShow,
 		cartProducts,
@@ -26,7 +25,6 @@ const Card = ({ product }: Props) => {
 
 	const addProductToCart = (event: any, data: Product) => {
 		event.stopPropagation()
-		setCount((prevState) => prevState + 1)
 		setCartProducts((prevState) => [...prevState, data])
 		checkoutMenu()
 	}

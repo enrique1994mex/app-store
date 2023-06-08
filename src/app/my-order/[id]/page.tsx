@@ -27,7 +27,7 @@ const MyOrder = () => {
 					  ))
 					: order
 							?.filter((order) => order.id === index)[0]
-							.products.map((product) => (
+							.products?.map((product) => (
 								<OrderCard key={product.id} product={product} />
 							))}
 			</div>

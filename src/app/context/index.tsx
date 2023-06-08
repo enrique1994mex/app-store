@@ -9,14 +9,18 @@ import {
 import { Data, Product, Order } from '@/interfaces/generics'
 
 export type ContextShopping = {
-	count: number
-	setCount: Dispatch<SetStateAction<number>>
 	isProductDetailOpen: boolean
 	productDetail: () => void
 	productToShow: Data | undefined
 	setProductToShow: Dispatch<SetStateAction<Data | undefined>>
+	products: Array<Product>
+	setProducts: Dispatch<SetStateAction<Array<Product>>>
 	cartProducts: Array<Product>
 	setCartProducts: Dispatch<SetStateAction<Array<Product>>>
+	searchByTitle: string
+	setSearchByTitle: Dispatch<SetStateAction<string>>
+	searchByCategory: string
+	setSearchByCategory: Dispatch<SetStateAction<string>>
 	order: Array<Order>
 	setOrder: Dispatch<SetStateAction<Array<Order>>>
 	isCheckoutMenu: boolean
@@ -30,6 +34,7 @@ type Props = {
 export const ShoppingContext = createContext<ContextShopping | null>(null)
 
 export const ShoppingProvider = ({ children }: Props) => {
+	//Count products
 	const [count, setCount] = useState<number>(0)
 
 	//Product Detail
@@ -37,8 +42,17 @@ export const ShoppingProvider = ({ children }: Props) => {
 	const productDetail = () => setIsProductDetailOpen((prevState) => !prevState)
 	const [productToShow, setProductToShow] = useState<Data>()
 
+	// Products
+	const [products, setProducts] = useState<Array<Product>>([])
+
 	//Cart products
 	const [cartProducts, setCartProducts] = useState<Array<Product>>([])
+
+	//Search title
+	const [searchByTitle, setSearchByTitle] = useState<string>('')
+
+	//Search category
+	const [searchByCategory, setSearchByCategory] = useState<string>('')
 
 	//Cart Order
 	const [order, setOrder] = useState<Array<Order>>([])
@@ -50,12 +64,16 @@ export const ShoppingProvider = ({ children }: Props) => {
 	return (
 		<ShoppingContext.Provider
 			value={{
-				count,
-				setCount,
 				isProductDetailOpen,
 				productDetail,
 				productToShow,
 				setProductToShow,
+				products,
+				setProducts,
+				searchByTitle,
+				setSearchByTitle,
+				searchByCategory,
+				setSearchByCategory,
 				cartProducts,
 				setCartProducts,
 				order,

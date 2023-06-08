@@ -1,6 +1,6 @@
-import Card from './components/Card'
-import ProductDetail from './components/ProductDetail'
 import { Product } from '@/interfaces/generics'
+import SearchInput from './components/SearchInput'
+import Products from './components/Products'
 
 async function getData() {
 	const res = await fetch('https://api.escuelajs.co/api/v1/products')
@@ -18,11 +18,12 @@ async function getData() {
 export default async function Home() {
 	const data: Array<Product> = await getData()
 	return (
-		<div className='grid gap-4 grid-cols-4 w-full max-w-screen-lg'>
-			{data.map((product) => (
-				<Card product={product} />
-			))}
-			<ProductDetail />
-		</div>
+		<>
+			<div className='flex items-center justify-center relative w-80 mb-4'>
+				<h1 className='font-medium text-xl'>Exclusive products</h1>
+			</div>
+			<SearchInput />
+			<Products products={data} />
+		</>
 	)
 }
